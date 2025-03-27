@@ -9,19 +9,19 @@ const ProductSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
-    unit:{
-        type:Number,
+    priceUnit:{
+        type:String,
         required:true
     },
     description:{
         type:Number,
         required:true
     },
-    location:{
+    productImage:{
         type:String,
         required:true
     },
-    productImage:{
+    category:{
         type:String,
         required:true
     },
@@ -37,3 +37,14 @@ const ProductSchema = new mongoose.Schema({
 const Product = mongoose.model("Product",ProductSchema);
 
 export default Product;
+
+
+  // availableStock:{
+    //     type:String,
+    //     required:false
+    // },
+
+        // location:{
+    //     type:String,
+    //     required:false
+    // },

@@ -10,26 +10,27 @@ const router = express.Router();
 
 router.post("/",protectRoute,async(req,res)=>{
     try{
-        const { productName,price,description,unit,location, productImage,user}=req.body;
-
-        if(!image || !productName || !price || !description || !unit || !location || !productImage ){
+        const { productName,price,description, productImage,priceUnit,category}=req.body;
+        
+        if(!productImage || !productName || !price || !description || !priceUnit || !category){
             return res.status(400).json({message: "Please provide all feilds"});
         }
 
         //upload the image to cloudinary
-        const uploadResponse = await cloudinary.uploader.upload(image);
+        const uploadResponse = await cloudinary.uploader.upload(productImage);
         const  imageUrl = uploadResponse.secure_url
         //save to database
         const newProduct = new Product({
             productName,
             price,
             description,
-            unit,
-            location, 
             productImage:imageUrl,
-            user:req.user._id
+            priceUnit,
+            category, 
+            user: req.user._id
 
         })
+        // productImage:imageUrl,
         await newProduct.save();
 
         res.status(201).json(newProduct);
