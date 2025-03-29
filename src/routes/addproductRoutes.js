@@ -50,7 +50,7 @@ router.get("/",protectRoute,async(req,res)=>{
         const limit = req.query.limit ||5;
         const skip = (page-1)*limit;
 
-        const Products = await Product.find()
+        const products = await Product.find()
         .sort({createdAt: -1})//desc
         .skip(skip)
         .limit(limit)
@@ -59,10 +59,10 @@ router.get("/",protectRoute,async(req,res)=>{
         const totalProducts = await Product.countDocuments();
         
         res.send({
-            Products,
+            products,
             currentPage:page,
             totalProducts,
-            totalPages:Math.cell(totalProducts/limit)
+            totalPages:Math.ceil(totalProducts/limit)
         });
     
     }catch(error){
