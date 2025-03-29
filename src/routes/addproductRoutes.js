@@ -19,6 +19,7 @@ router.post("/",protectRoute,async(req,res)=>{
         //upload the image to cloudinary
          const uploadResponse = await cloudinary.uploader.upload(productImage);
          const  imageUrl = uploadResponse.secure_url
+         
         //save to database
         const newProduct = new Product({
             productName,
@@ -36,7 +37,7 @@ router.post("/",protectRoute,async(req,res)=>{
         res.status(201).json(newProduct);
 
     }catch(error){
-        console.log("Error creating book",error);
+        console.log("Error creating Product",error);
         res.status(500).json({message: error.message});
 
     }
